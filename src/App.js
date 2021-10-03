@@ -5,24 +5,40 @@ import * as d3 from "d3";
 import data from "./data";
 
 
+
 const { useState, useEffect, useRef } = React;
 
 function App() {
   const globeEl = useRef();
   const [popData, setPopData] = useState([]);
+  const [locationData, setLocationData] = useState(data['loc'])
+
+//   setInterval(myTimer, 1000);
+
+//   function myTimer() {
+//   let posUpdate = []
+//   locationData.map(pos => {
+//     pos.lat = pos.lat+(Math.random()*5)
+//     pos.lng = pos.lng+(Math.random()*5)
+//     posUpdate.push(pos)
+//   });
+//   setLocationData(posUpdate)
+// }
+
   useEffect(() => {
       // Auto-rotate
       globeEl.current.controls().autoRotate = true;
       globeEl.current.controls().autoRotateSpeed = 0.5;
   }, []);
   const weightColor = d3.scaleSequentialSqrt(d3.interpolateYlOrRd).domain([0, 1e7]);
-      console.log("HEREEEEEEEEEEEEEEEEEEEEEEEEE ", weightColor(0))
+      console.log("HEEEEEEE ", Math.random())
+
     return <Globe
       ref={globeEl}
       globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
       // bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
       // backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
-      // backgroundColor="rgba(0,0,255,0.5)"
+      backgroundColor="rgb(8,3,22)"
       // hexBinPointsData={data["loc"]}
       // hexBinPointWeight="pop"
       // hexAltitude={d => d.sumWeight * 6e-8}
@@ -31,15 +47,8 @@ function App() {
       // hexSideColor={d => weightColor(d.sumWeight)}
       // hexBinMerge={true}
       // enablePointerInteraction={false}
-      // pointLat={9.081999}
-      // pointLng={8.675277000000001}
-      // pointColor="rgb(255,0,0)"
-      // // pointRadius={4000}
-      // // pointAltitude={500000}
-      // pointLabel="TTTTTTTTTTTTTT"
-      // pointsData={{pointLat: 9.081999, pointLng: 8.675277000000001}}
     
-        hexBinPointsData={data["loc"]}
+        hexBinPointsData={locationData}
         // hexBinPointWeight="size"
         hexAltitude={(d) => d.sumWeight * 0.5}
         hexBinResolution={3}
